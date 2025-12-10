@@ -1,7 +1,9 @@
 // src/nexusApi.js
 
 // 👉 Put your real backend URL here (Railway)
-export const API_URL = "https://YOUR-RAILWAY-URL-HERE";
+export const API_URL =
+  "https://nexusflowone-backend-production.up.railway.app";
+
 // Example: "https://nexusflow-one-backend.up.railway.app"
 
 // ---------- AUTH ----------
