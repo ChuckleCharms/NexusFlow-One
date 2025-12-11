@@ -346,3 +346,134 @@ export async function deleteApiKey(id) {
   }
   return data;
 }
+// ---------- EXECUTIONS (RUN HISTORY) ----------
+
+export async function getExecutions() {
+  const res = await fetch(`${API_URL}/api/executions`, {
+    headers: getAuthHeader(),
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(data.error || "Failed to load executions");
+  }
+  return data;
+}
+
+export async function simulateExecution(workflowId) {
+  const res = await fetch(`${API_URL}/api/executions/simulate`, {
+    method: "POST",
+    headers: getAuthHeader(),
+    body: JSON.stringify({ workflow_id: workflowId }),
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(data.error || "Failed to simulate execution");
+  }
+  return data;
+}
+
+// ---------- TRIGGERS ----------
+
+export async function getTriggers() {
+  const res = await fetch(`${API_URL}/api/triggers`, {
+    headers: getAuthHeader(),
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(data.error || "Failed to load triggers");
+  }
+  return data;
+}
+
+export async function createTrigger(workflowId, triggerType, config = {}) {
+  const res = await fetch(`${API_URL}/api/triggers`, {
+    method: "POST",
+    headers: getAuthHeader(),
+    body: JSON.stringify({
+      workflow_id: workflowId,
+      trigger_type: triggerType,
+      config_json: config,
+    }),
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(data.error || "Failed to create trigger");
+  }
+  return data;
+}
+
+// ---------- TENANTS ----------
+
+export async function getTenants() {
+  const res = await fetch(`${API_URL}/api/tenants`, {
+    headers: getAuthHeader(),
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(data.error || "Failed to load tenants");
+  }
+  return data;
+}
+
+export async function createTenant(name, slug) {
+  const res = await fetch(`${API_URL}/api/tenants`, {
+    method: "POST",
+    headers: getAuthHeader(),
+    body: JSON.stringify({ name, slug }),
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(data.error || "Failed to create tenant");
+  }
+  return data;
+}
+
+// ---------- INTEGRATIONS ----------
+
+export async function getIntegrationCatalog() {
+  const res = await fetch(`${API_URL}/api/integrations/catalog`, {
+    headers: getAuthHeader(),
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(data.error || "Failed to load integration catalog");
+  }
+  return data;
+}
+
+export async function getTenantIntegrations(tenantId) {
+  const res = await fetch(`${API_URL}/api/integrations/tenant/${tenantId}`, {
+    headers: getAuthHeader(),
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(data.error || "Failed to load tenant integrations");
+  }
+  return data;
+}
+
+// ---------- BLUEPRINTS ----------
+
+export async function getBlueprints() {
+  const res = await fetch(`${API_URL}/api/blueprints`, {
+    headers: getAuthHeader(),
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(data.error || "Failed to load blueprints");
+  }
+  return data;
+}
+
+export async function createBlueprint(payload) {
+  const res = await fetch(`${API_URL}/api/blueprints`, {
+    method: "POST",
+    headers: getAuthHeader(),
+    body: JSON.stringify(payload),
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(data.error || "Failed to create blueprint");
+  }
+  return data;
+}
